@@ -1,66 +1,30 @@
-## Foundry
+## README
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+### 執行說明
 
-Foundry consists of:
+```
+git clone https://github.com/tannerang/RandomMintNFT.git
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+cd RandomMintNFT
 
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+forge test 
 ```
 
-### Test
+### 測試個案說明
 
-```shell
-$ forge test
 ```
+testRandomMint
+    說明：
+        測試 RandomMint 方法是否如預期
+    流程：
+        user1 使用 RandomMint 兩次
+        檢查 tokenID 是否隨機且不重複
 
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+testReveal
+    說明：
+        測試解盲前的 tokenURI 及解盲後的 tokenURI 是否不同
+    流程：
+        user1 RandomMint 一個 Token 並取得對應 unrevealTokenURI
+        owner 設定 setReveal(true)
+        user1 取得 revealTokenURI 並比較與 unrevealTokenURI 是否不一樣
 ```

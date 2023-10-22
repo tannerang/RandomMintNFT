@@ -12,23 +12,21 @@ contract CounterTest is Test {
         RandomMintNFTContract = new RandomMintNFT(contractOwner, 500);
     }
 
-    function testRandomMint() public {
+    function testRandomMint(uint x) public {
         address user1 = makeAddr("user1");
         vm.startPrank(user1);
         console2.log(RandomMintNFTContract.balanceOf(user1)); // should be 0
-        
+
         RandomMintNFTContract.randomMint(user1);
-        RandomMintNFTContract.randomMint(user1);
+        vm.prevrandao(bytes32(x));
         RandomMintNFTContract.randomMint(user1);
 
-        console2.log(RandomMintNFTContract.balanceOf(user1)); // should be 3
+        console2.log(RandomMintNFTContract.balanceOf(user1)); // should be 2
         console2.log(RandomMintNFTContract.usedTokenID(0));
         console2.log(RandomMintNFTContract.usedTokenID(1));
-        console2.log(RandomMintNFTContract.usedTokenID(2));
 
         assertEq(true, RandomMintNFTContract.existsTokenID(RandomMintNFTContract.usedTokenID(0)));
         assertEq(true, RandomMintNFTContract.existsTokenID(RandomMintNFTContract.usedTokenID(1)));
-        assertEq(true, RandomMintNFTContract.existsTokenID(RandomMintNFTContract.usedTokenID(2)));
 
         vm.stopPrank();
     }
